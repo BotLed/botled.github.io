@@ -1,7 +1,7 @@
 // " Your Scientists Were So Preoccupied With Whether Or Not They Could, They Didn’t Stop To Think If They Should "
 
 const tileTitles = [
-    "My Pet", "Scrapey", "Minesweeper",
+    "My Pet", "SubForest", "Minesweeper",
     "FFmpeg-GUI", "Personal Website"
 ];
 
@@ -14,19 +14,19 @@ const tileImages = [
 ];
 
 const tileText = [
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada iaculis ultrices.",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada iaculis ultrices.",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada iaculis ultrices.",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada iaculis ultrices.",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada iaculis ultrices."
+    "Simple Tamagotchi-like game made to be accesible and fun for kids. Built in a team of 5 people using Java, JavaFX.",
+    "A subreddit visualizer utilizing React-Three-Fiber (React renderer for Three.js), a Flask REST API and Reddit's PRAW API.",
+    "A version of the classic game Minesweeper developed using C++ and Qt.",
+    "A GUI built to make FFmpeg simpler to use, developed using Python and Tkinter.",
+    "This website, developed using standard HTML/CSS and Javascript"
 ]
 
 const tileTech = [
-    "Python C (Toolkit) WebSockets Rails Material UI Redis",
-    "React Redux (Toolkit) WebSockets Rails Material UI Redis",
-    "React Redux (Toolkit) WebSockets Rails Material UI Redis",
-    "React Redux (Toolkit) WebSockets Rails Material UI Redis",
-    "React Redux (Toolkit) WebSockets Rails Material UI Redis",
+    "Java, JavaFX, Gradle, UI",
+    "Javascript, Python, React, Three.js, Flask, Web development",
+    "C++, Qt, GUI",
+    "Python, Tkinter, GUI",
+    "HTML/CSS, Javascript, Web Development",
 ]
 
 const tileLinks = [
