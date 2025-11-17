@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ASCII Eye</title>
+<title>BotLed</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+
 <style>
   body {
     background: black;
@@ -16,12 +21,45 @@
   }
 
   .portfolio {
+    text-align: center;
     position: absolute;
-    bottom: 125px;
-    font-size: 16px;
+    left: 50%;               /* start from center horizontally */
+    transform: translateX(-50%);
+    bottom: 10%;
+    font-size: 25px;
     color: white;
-    font-family: monospace;
-    position: center;
+    font-family: "Merriweather", sans-serif;
+
+    color: transparent;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+  }
+
+  .ascii-art {
+    font-family: "Courier New", monospace;
+    color: white;
+    background: black;
+    font-size: 8px;
+    line-height: 1; 
+    white-space: pre; 
+    position: absolute;
+    text-align: center;
+    left: 50%;               /* start from center horizontally */
+    transform: translateX(-50%);
+    bottom: 10%;
+}
+
+
+
+  .container {
+    opacity: 0;
+    animation: fadeIn 5s forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
   }
 
   pre {
@@ -31,15 +69,31 @@
 </style>
 </head>
 <body>
+    <div class="container">
+        <div>
+            <pre id="asciiSphere"></pre>
+        </div>
 
 
-    <div>
-        <pre id="asciiSphere"></pre>
+        <pre class="ascii-art"> <!-- Uses ASCII-12 (regular)-->
+                                                 
+                                                                      
+                              
+ mmmmmmmm                     
+ ##""""""                     
+ ##        "##  ###   m####m  
+ #######    ##m ##   ##mmmm## 
+ ##          ####"   ##"""""" 
+ ##mmmmmm     ###    "##mmmm# 
+ """"""""     ##       """""  
+            ###               
+                              
+                                                                      
+                                                                      
+                                                 
+                                                 
+        </pre>
     </div>
-
-    <h1 class="portfolio">Portfolio</h1>
-
-
 
 <script>
 const asciiEl = document.getElementById('asciiSphere');
