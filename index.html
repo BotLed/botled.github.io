@@ -1,58 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Andrey's Website</title>
-    <link rel="stylesheet" href="./styles.css">
-    <script src="./script.js"></script>
+<meta charset="UTF-8">
+<title>BotLed</title>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="styles.css">
+
 </head>
 <body>
+    <div class="container">
+        <div>
+            <pre id="asciiSphere"></pre>
+        </div>
 
-    <div class="welcome-screen" id="welcome-screen">
-        <div class="wipe-animation"></div>
+
+        <pre class="ascii-art"> <!-- Uses ASCII-12 (regular)-->
+                                                 
+                                                                      
+                              
+                                                  
+                                                                                                                                                                                    
+ mm    mm                  mm                                   mmmm                                                                                      ##                        
+ ##    ##                  ##                                 ##""""#                                  ##                                      ##         ""                        
+ ##    ##  ##m####m   m###m##   m####m    ##m####            ##"        m####m   ##m####m  mm#####m  #######    ##m####  ##    ##   m#####m  #######    ####      m####m   ##m####m 
+ ##    ##  ##"   ##  ##"  "##  ##mmmm##   ##"                ##        ##"  "##  ##"   ##  ##mmmm "    ##       ##"      ##    ##  ##"    "    ##         ##     ##"  "##  ##"   ## 
+ ##    ##  ##    ##  ##    ##  ##""""""   ##                 ##m       ##    ##  ##    ##   """"##m    ##       ##       ##    ##  ##          ##         ##     ##    ##  ##    ## 
+ "##mm##"  ##    ##  "##mm###  "##mmmm#   ##                  ##mmmm#  "##mm##"  ##    ##  #mmmmm##    ##mmm    ##       ##mmm###  "##mmmm#    ##mmm   mmm##mmm  "##mm##"  ##    ## 
+   """"    ""    ""    """ ""    """""    ""                    """"     """"    ""    ""   """"""      """"    ""        """" ""    """""      """"   """"""""    """"    ""    "" 
+                                                                                                                                                                                    
+                                                                                                                                                                                                                         
+                                                                      
+                                                                      
+                                                 
+                                                 
+        </pre>
     </div>
-    
-    <div class="main">
-        <h1 class="main-title">Andrey</h1>
-        <ul class="nav-list">
-            <div class="button-container">
-                <a href = "./portfolio/index.html">
-                <button class="button"> 
-                    <span class="actual-text">&nbsp;Portfolio&nbsp;</span>
-                    <span aria-hidden="true" class="hover-text">&nbsp;Portfolio&nbsp;</span>
-                </button>
-                </a>
-            </div>
-            <div class="button-container">
-                <a href = "./about/index.html">
-                <button class="button">
-                    <span class="actual-text">&nbsp;About&nbsp;</span>
-                    <span aria-hidden="true" class="hover-text">&nbsp;About&nbsp;</span>
-                </button>
-                </a>
-            </div>
-            <div class="button-container">
-                <button class="button">
-                    <span class="actual-text">&nbsp;Contact&nbsp;</span>
-                    <span aria-hidden="true" class="hover-text">&nbsp;Contact&nbsp;</span>
-                </button>
-                <span class="secret-construction">Yup, also under construction</span>
-            </div>
 
-        </ul>
+<script>
+const asciiEl = document.getElementById('asciiSphere');
+const width = 50;
+const height = 25;
+const chars = ['.', '-', '+', '*', 'O', '@'];
 
-        <div class="container">
-            <div id="cube">
-              <div class="front"></div>
-              <div class="back"></div>
-              <div class="right"></div>
-              <div class="left"></div>
-              <div class="top"></div>
-              <div class="bottom"></div>
-            </div>
-          </div>
-    </div>
+let mouse = { x: 0, y: 0 };
+let pupil = { x: 0, y: 0 };
+
+window.addEventListener('mousemove', (e) => {
+    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = ((e.clientY / window.innerHeight) * 2 - 1);
+});
+
+function renderEye() {
+    let output = '';
+
+    for (let y = -height/2; y < height/2; y++) {
+        for (let x = -width/2; x < width/2; x++) {
+            const nx = x / (width/2);
+            const ny = y / (height/2);
+            const r2 = nx*nx + ny*ny;
+
+            if (r2 <= 1) {
+                const z = Math.sqrt(1 - r2);
+                const idx = Math.floor(z * (chars.length-1));
+                let char = chars[Math.max(0, Math.min(chars.length-1, idx))];
+                let color = 'white';
+
+                // Pupil movement
+                const pupilRadius = 0.4;            
+                const maxPupilDist = 0.6 - pupilRadius; // max distance from eye center
+
+                // Target position scaled by maxPupilDist
+                let targetX = mouse.x * maxPupilDist;
+                let targetY = mouse.y * maxPupilDist;
+
+                // Smooth pupil movement
+                pupil.x += (targetX - pupil.x) * 0.1;
+                pupil.y += (targetY - pupil.y) * 0.1;
+
+                // Limits pupil to circular area inside eye
+                const pupilDist = Math.sqrt(pupil.x*pupil.x + pupil.y*pupil.y);
+                if (pupilDist > maxPupilDist) {
+                    pupil.x = (pupil.x / pupilDist) * maxPupilDist;
+                    pupil.y = (pupil.y / pupilDist) * maxPupilDist;
+                }
+
+                // Actually draw pupil
+                const dx = nx - pupil.x;
+                const dy = ny - pupil.y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                
+                // Dynamic shading so its not just a black blob
+                if (dist < pupilRadius) {
+                    if (dist < pupilRadius * 0.4) color = 'black';
+                    else if (dist < pupilRadius * 0.7) color = '#222';
+                    else color = '#555';
+                    char = '@';
+                }
+
+                output += `<span style="color:${color}">${char}</span>`;
+            } else {
+                output += ' ';
+            }
+        }
+        output += '\n';
+    }
+
+    asciiEl.innerHTML = output;
+}
+
+function animate() {
+    renderEye();
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
 </body>
 </html>
